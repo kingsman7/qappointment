@@ -27,6 +27,10 @@ export default {
               format: val => val ? (val.title ? val.title : '-') : '-'
             },
             {
+              name: 'form', label: this.$tr('ui.label.form'), field: 'form', align: 'left',
+              format: val => val ? (val.title ? val.title : '-') : '-'
+            },
+            {
               name: 'description', label: this.$tr('ui.form.description'), field: 'description',
               align: 'left', style: 'width: 100px'
             },
@@ -85,6 +89,21 @@ export default {
               select: {label: 'title', id: 'id'},
               requestParams: {include: 'parent'}
             }
+          },
+          formId: {
+            type: 'crud',
+            props: {
+              crudType: 'select',
+              crudData: import('@imagina/qform/_crud/crudForms'),
+              crudProps: {
+                label: `${this.$tr('ui.label.form')}`,
+              },
+              config: {
+                options: {
+                  label: 'title', value: 'id'
+                }
+              },
+            },
           },
           description: {
             value: '',
