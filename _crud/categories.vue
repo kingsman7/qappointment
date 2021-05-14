@@ -75,21 +75,6 @@ export default {
               ],
             }
           },
-          parentId: {
-            value: 0,
-            type: 'select',
-            props : {
-              label: `${this.$tr('ui.form.parent')}*`,
-              options : [
-                {label: this.$tr('ui.label.disabled'), value: 0},
-              ],
-            },
-            loadOptions: {
-              apiRoute: 'apiRoutes.qappointment.categories',
-              select: {label: 'title', id: 'id'},
-              requestParams: {include: 'parent'}
-            }
-          },
           formId: {
             type: 'crud',
             props: {
@@ -114,6 +99,34 @@ export default {
               rules: [
                 val => !!val || this.$tr('ui.message.fieldRequired')
               ],
+            }
+          },
+        },
+        formRight: {
+          parentId: {
+            value: 0,
+            type: 'select',
+            props: {
+              label: `${this.$tr('ui.form.parent')}*`,
+              options: [
+                {label: this.$tr('ui.label.disabled'), value: 0},
+              ],
+            },
+            loadOptions: {
+              apiRoute: 'apiRoutes.qappointment.categories',
+              select: {label: 'title', id: 'id'},
+              requestParams: {include: 'parent'}
+            }
+          },
+          mediasSingle: {
+            name: 'mediasSingle',
+            value: {},
+            type: 'media',
+            props: {
+              label: this.$tr('ui.form.firstImage'),
+              zone: 'mainimage',
+              entity: "Modules\\Iappointment\\Entities\\Category",
+              entityId: null
             }
           },
         },
