@@ -13,6 +13,7 @@ export default {
         entityName: config("main.qappointment.entityNames.appointments"),
         permission: 'iappointment.appointments',
         apiRoute: 'apiRoutes.qappointment.appointments',
+        extraFormFields: 'iappointment.crud-fields.appointments',
         create: {
           title: this.$tr('qappointment.layout.newAppointment'),
         },

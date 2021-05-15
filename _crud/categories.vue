@@ -14,6 +14,7 @@ export default {
         entityName: config("main.qappointment.entityNames.category"),
         apiRoute: 'apiRoutes.qappointment.categories',
         permission: 'iappointment.appointments',
+        extraFormFields: 'iappointment.crud-fields.categories',
         create: {
           title: this.$tr('qappointment.layout.newCategory'),
         },
