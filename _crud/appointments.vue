@@ -35,7 +35,7 @@ export default {
             },
             {
               name: 'statusinfo', label: this.$tr('ui.form.status'), field: 'status', align: 'left',
-              format:val => ((val && val.title) ? val.title : '-')
+              format: val => ((val && val.title) ? val.title : '-')
             },
             {
               name: 'description', label: this.$tr('ui.form.description'), field: 'description',
@@ -60,7 +60,7 @@ export default {
                 label: this.$tr('ui.label.category')
               },
               loadOptions: {
-                apiRoute: 'apiRoutes.qblog.categories'
+                apiRoute: 'apiRoutes.qappointment.categories'
               }
             }
           }
