@@ -4,10 +4,10 @@ const pages = config('pages') // Get Pages from config
 export default [
   {
     title: 'qappointment.sidebar.adminGroup',
-    icon: 'fas fa-calendar-check',
+    icon: 'fas fa-clipboard-check',
     children: [
-      pages.qappointment.appointments, // appointments setup
-      pages.qappointment.categories, // categories setup
+      //pages.mainqappointment.appointmentIndex,
+      pages.qappointment.categories // categories setup
     ]
   },
 ]

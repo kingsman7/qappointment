@@ -13,4 +13,19 @@ export default {
     assigned: 'Asignado a',
     newStatus: 'Nuevo estado'
   },
+  message: {
+    assigningMessage: 'Estamos asignando un profesional para tu cita, espera por favor...',
+    expiredMessage: 'Tu cita ha expirado...',
+    completedMessage: 'Tu cita ha terminado...',
+    abandonedMessage: 'Tu cita fue abandonada...',
+    appointmentList: 'Lista de Citas',
+    readFullConversation: 'Leer la conversación completa',
+    readRecomendations: 'Leer recomendaciones',
+    goToAppointment: 'Ir a la cita',
+    addRecommendation: 'Agregar Recomendación',
+    changeStatus: 'Cambiar Estado',
+    showInfo: 'Ver Información',
+    resumAppointment: 'Retomar cita',
+    newAssignationMessage: 'Tienes una nueva assignación!'
+  }
 }

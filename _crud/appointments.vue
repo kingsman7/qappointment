@@ -16,8 +16,11 @@ export default {
         extraFormFields: 'iappointment.crud-fields.appointments',
         create: {
           title: this.$tr('qappointment.layout.newAppointment'),
+          toExternalUrl: `${this.$store.state.qsiteApp.baseUrl}/cita/categorias`
         },
         read: {
+          showAs: 'grid',
+          allowToggleView: false,
           columns: [
             {name: 'id', label: this.$tr('ui.form.id'), field: 'id', style: 'width: 50px'},
             {
@@ -51,7 +54,7 @@ export default {
             },
             {name: 'actions', label: this.$tr('ui.form.actions'), align: 'left'},
           ],
-          requestParams: {include: 'category,customer,assigned,status'},
+          requestParams: {include: 'category,customer,assigned,status,fields,conversation'},
           filters: {
             categories: {
               value: null,
@@ -63,6 +66,9 @@ export default {
                 apiRoute: 'apiRoutes.qappointment.categories'
               }
             }
+          },
+          grid: {
+            component: () => import('@imagina/qappointment/_components/crud/appointmentCard'),
           }
         },
         update: {
