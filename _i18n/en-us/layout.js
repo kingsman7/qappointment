@@ -1,6 +1,6 @@
 export default {
-  newPost: 'New Post',
-  updatePost: 'Update Post',
+  newAppointment: 'New Appointment',
+  updateAppointment: 'Update Appointment',
   newCategory: 'New Category',
   updateCategory: 'Update Category',
   post: 'Post',

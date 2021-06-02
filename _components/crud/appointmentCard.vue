@@ -85,7 +85,8 @@
         </div>
       </div>
       <!--Actions got to appointment-->
-      <div class="appt-card__actions text-center" v-if="showAllInfo && rowData.goToAppointment">
+      <div class="appt-card__actions text-center"
+           v-if="(configApp.mode == 'ipanel') && showAllInfo && rowData.goToAppointment">
         <!--Separator-->
         <q-separator class="q-my-sm"/>
         <!--Action-->
@@ -120,6 +121,7 @@ export default {
   },
   data() {
     return {
+      configApp: config('app'),
       loading: false,
       showAllInfo: false,
       showConversation: false
