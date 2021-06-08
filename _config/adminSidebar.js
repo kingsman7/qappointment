@@ -9,5 +9,5 @@ export default [
       pages.mainqappointment.appointmentIndex,
       pages.qappointment.categories // categories setup
     ]
-  },
+  }
 ]

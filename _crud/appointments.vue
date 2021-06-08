@@ -78,26 +78,9 @@ export default {
         formLeft: {
           id: {value: ''},
           userId: {value: this.$store.state.quserAuth.userId},
-          customerId: {
-            type: 'crud',
-            props: {
-              crudType: 'select',
-              crudData: import('@imagina/quser/_crud/users'),
-              crudProps: {
-                label: this.$trp('qappointment.layout.form.customer') + "*",
-                rules: [
-                  val => !!val || this.$tr('ui.message.fieldRequired')
-                ],
-              },
-              config: {
-                options: {
-                  label: 'fullName', value: 'id'
-                }
-              },
-            },
-          },
           assignedTo: {
             type: 'crud',
+            permission: 'iappointment.appointments.edit-all',
             props: {
               crudType: 'select',
               crudData: import('@imagina/quser/_crud/users'),
@@ -109,10 +92,12 @@ export default {
                   label: 'fullName', value: 'id'
                 }
               },
+              vIf: this.$auth.hasAccess('iappointment.appointments.edit-all')
             },
           },
           categoryId: {
             type: 'crud',
+            permission: 'iappointment.appointments.edit-all',
             props: {
               crudType: 'select',
               crudData: import('@imagina/qappointment/_crud/categories'),
@@ -126,7 +111,7 @@ export default {
                 options: {
                   label: 'title', value: 'id'
                 }
-              },
+              }
             },
           },
           statusId: {
@@ -142,15 +127,12 @@ export default {
               apiRoute: 'apiRoutes.qappointment.appointmentStatuses',
             }
           },
-          description: {
-            value: '',
+          recommendation: {
+            value: null,
             type: 'html',
-            isTranslatable: true,
+            isFakeField: true,
             props: {
-              label: `${this.$tr('ui.form.description')}*`,
-              rules: [
-                val => !!val || this.$tr('ui.message.fieldRequired')
-              ],
+              label: `${this.$tr('ui.label.recommendation')}`
             }
           },
         },

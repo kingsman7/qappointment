@@ -1,6 +1,6 @@
 export default {
   appointmentIndex: {
-    permission: 'iappointment.appointments.customer-show',
+    permission: 'iappointment.appointments.index',
     activated: true,
     authenticated: true,
     path: '/appointments/index',

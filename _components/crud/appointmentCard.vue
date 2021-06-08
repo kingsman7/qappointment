@@ -5,10 +5,6 @@
       <!--Title-->
       <div class="appt-card__title row items-center justify-between">
         <div class="box-title">{{ rowData.title }}</div>
-        <q-btn :icon="`fas fa-chevron-${showAllInfo ? 'up' : 'down'}`" color="info" size="sm" round unelevated
-               padding="xs" @click="showAllInfo = !showAllInfo">
-          <q-tooltip>{{ $tr(`ui.message.${showAllInfo ? 'showLess' : 'showMore'}`) }}</q-tooltip>
-        </q-btn>
       </div>
       <!--Fields-->
       <div class="appt-card__fields">
@@ -94,6 +90,21 @@
                :label="$tr('qappointment.layout.message.goToAppointment')"
                :to="{name : 'qappointment.panel.appointments.index', params : {id : rowData.id}}"/>
       </div>
+      <!--Actions-->
+      <div class="appt-actions text-right">
+        <!--Separator-->
+        <q-separator class="q-mt-sm q-mb-md"/>
+        <!--Buttons-->
+        <div class="row justify-between">
+          <!--Show more info-->
+          <q-btn color="info" size="sm" rounded unelevated padding="xs md" @click="showAllInfo = !showAllInfo"
+                 :label="$tr(`ui.message.${showAllInfo ? 'showLess' : 'showMore'}`)"
+                 :icon="`fas fa-angle-double-${showAllInfo ? 'up' : 'down'}`"/>
+          <!--Edit-->
+          <q-btn color="green" size="sm" rounded unelevated @click="$emit('update')"
+                 :label="$tr('ui.label.edit')" icon="fas fa-pen" v-if="permitAction.edit"/>
+        </div>
+      </div>
     </div>
     <!--Conversation Content-->
     <q-dialog v-model="showConversation">
@@ -110,7 +121,8 @@ export default {
   beforeDestroy() {
   },
   props: {
-    row: {default: false}
+    row: {default: false},
+    permitAction: {default: false}
   },
   components: {advanceChat},
   watch: {},

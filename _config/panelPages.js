@@ -21,8 +21,8 @@ export default {
     name: 'qappointment.panel.appointments.assigned.index',
     page: () => import('@imagina/qappointment/_pages/panel/appointmentAssignedIndex'),
     layout: () => import('@imagina/qsite/_layouts/master.vue'),
-    title: 'qappointment.sidebar.panelAppointments',
-    icon: 'fas fa-clipboard-check',
+    title: 'ui.label.chat',
+    icon: 'fas fa-comments',
     subHeader: {
       refresh: true,
     }
