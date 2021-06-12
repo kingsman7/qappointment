@@ -2,7 +2,8 @@
   <div id="appointmentAssignedIndex">
     <div id="appointmentAssignedIndexContent" class="box" style="padding: 0">
       <!--Chat-->
-      <advanced-chat :rooms-id="assignedConversations.conversationsId" @room-opened="roomId => selectedRommId = roomId"
+      <advanced-chat :rooms-id="assignedConversations.conversationsId"
+                     @room-opened="roomId => selectedRommId = $clone(roomId)"
                      :advanced-props="advancedChatProps" v-if="!loading" height="calc(100vh - 200px)"
                      :load-rooms="assignedConversations.conversationsId.length ? true : false"/>
       <!--Dialog Information-->
@@ -41,6 +42,24 @@
           </q-card-section>
         </q-card>
       </q-dialog>
+      <!--Form report error-->
+      <q-dialog v-model="modalReportError" persistent v-if="formErrorId">
+        <q-card id="dialogInformation" class="bg-grey-1" v-if="appointmentSelected">
+          <!--Header-->
+          <q-toolbar class="bg-primary text-white">
+            <q-toolbar-title>
+              <label>{{ $tr('qappointment.layout.message.reportError') }}</label>
+            </q-toolbar-title>
+            <q-btn flat v-close-popup icon="fas fa-times"/>
+          </q-toolbar>
+
+          <!--Content-->
+          <q-card-section class="relative-position col-12">
+            <dynamic-form :form-id="formErrorId" @sent="modalReportError = false"
+                          :send-to="{apiRoute : 'apiRoutes.qform.leads', extraData : {formId : formErrorId}}"/>
+          </q-card-section>
+        </q-card>
+      </q-dialog>
       <!--inner-loading-->
       <inner-loading :visible="loading"/>
     </div>
@@ -73,6 +92,7 @@ export default {
         title: false,
         type: false
       },
+      modalReportError: false,
       fieldValue: {
         addRecommendation: null,
         changeStatus: null,
@@ -80,13 +100,18 @@ export default {
     }
   },
   computed: {
+    //Form Error report action
+    formErrorId() {
+      return this.$store.getters['qsiteApp/getSettingValueByName']('iappointment::errorFormRelated')
+    },
     //Get conversations from appointments
     assignedConversations() {
       let response = {conversations: [], conversationsId: []}//Default response
+      let appointments = this.$clone(this.appointments)
 
-      if (this.appointments) {
+      if (appointments) {
         //Get appointments with conversations
-        let apptWithConversations = this.appointments.filter(appt => appt.conversation)
+        let apptWithConversations = appointments.filter(appt => appt.conversation)
         //Get only conversations
         let conversations = apptWithConversations.map(appointment => appointment.conversation)
         //Add to response
@@ -97,20 +122,20 @@ export default {
       }
 
       //Response
-      return response
+      return this.$clone(response)
     },
     //Get appointment from room selected
     appointmentSelected() {
       //Validate if exist selected room
       if (!this.selectedRommId) return false
       //Get appointments with conversations
-      let apptWithConversations = this.appointments.filter(appt => appt.conversation)
+      let apptWithConversations = this.$clone(this.appointments.filter(appt => appt.conversation))
       //Response
       return apptWithConversations.find(appt => appt.conversation.id = this.selectedRommId)
     },
     //advance chat props
     advancedChatProps() {
-      return {
+      let response = {
         menuActions: [
           {
             name: 'showInformation',
@@ -144,9 +169,21 @@ export default {
                 type: 'addRecommendation'
               }
             }
-          },
+          }
         ]
       }
+
+      //Add form error report action
+      if (this.formErrorId) response.menuActions.push({
+        name: 'reportError',
+        title: this.$tr('qappointment.layout.message.reportError'),
+        action: (params) => {
+          this.modalReportError = true
+        }
+      })
+
+      //Response
+      return response
     },
     //Actions fields
     actionsFields() {
@@ -222,7 +259,7 @@ export default {
     //Update Appointment
     updateAppointment() {
       this.modal.loading = true
-      let requestData = this.appointmentSelected
+      let requestData = this.$clone(this.appointmentSelected)
       //Set status
       if (this.modal.type == 'changeStatus') requestData.statusId = this.fieldValue.changeStatus
       //Set Recommendation

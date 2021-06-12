@@ -4,5 +4,5 @@ export default {
   adminCategories: 'Appointment Categories',
   adminStatus: 'List Status',
 
-  panelAppointments: 'My Appointments'
+  panelAppointments: 'List Appointments'
 }

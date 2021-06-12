@@ -4,5 +4,5 @@ export default {
   adminCategories: 'Categorias de citas',
   adminStatus: 'Lista de estados',
 
-  panelAppointments: 'Mis Citas'
+  panelAppointments: 'Lista de Citas'
 }

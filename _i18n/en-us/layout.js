@@ -26,6 +26,7 @@ export default {
     changeStatus: 'Change Status',
     showInfo: 'Show Information',
     resumAppointment: 'Resume appointment',
-    newAssignationMessage: 'You have a new appointment!'
+    newAssignationMessage: 'You have a new appointment!',
+    reportError : 'Report Error'
   }
 }

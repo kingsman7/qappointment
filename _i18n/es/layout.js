@@ -26,6 +26,7 @@ export default {
     changeStatus: 'Cambiar Estado',
     showInfo: 'Ver Información',
     resumAppointment: 'Retomar cita',
-    newAssignationMessage: 'Tienes una nueva assignación!'
+    newAssignationMessage: 'Tienes una nueva assignación!',
+    reportError: 'Reportar un Error'
   }
 }

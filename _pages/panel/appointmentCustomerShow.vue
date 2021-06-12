@@ -2,12 +2,46 @@
   <div id="appointmentIndexPage">
     <div id="appointmentIndexPageContent">
       <div class="box relative-position">
-        <!--Title-->
-        <div class="box-title" v-if="appointment">
-          <q-icon name="fas fa-calendar-check"/>
-          {{ appointment.category.title }}
-          <q-separator class="q-mt-sm q-mb-md"/>
+        <!--Top Content-->
+        <div v-if="appointment" class="row justify-between">
+          <!--Title-->
+          <div class="box-title">
+            <q-icon name="fas fa-calendar-check"/>
+            {{ appointment.category.title }}
+          </div>
+          <!--Actions-->
+          <q-btn-dropdown flat color="blue-grey" dropdown-icon="fas fa-ellipsis-v" round unelevated
+                          v-if="appointmentActions.length">
+            <q-list>
+              <q-item v-for="(action, keyItem) in appointmentActions" clickable v-close-popup
+                      @click="action.action()">
+                <q-item-section>
+                  <q-item-label>{{ action.title }}</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
         </div>
+        <!--Form report error-->
+        <q-dialog v-model="modalReportError" persistent v-if="formErrorId">
+          <q-card id="dialogInformation" class="bg-grey-1">
+            <!--Header-->
+            <q-toolbar class="bg-primary text-white">
+              <q-toolbar-title>
+                <label>{{ $tr('qappointment.layout.message.reportError') }}</label>
+              </q-toolbar-title>
+              <q-btn flat v-close-popup icon="fas fa-times"/>
+            </q-toolbar>
+
+            <!--Content-->
+            <q-card-section class="relative-position col-12">
+              <dynamic-form :form-id="formErrorId" @sent="modalReportError = false"
+                            :send-to="{apiRoute : 'apiRoutes.qform.leads', extraData : {formId : formErrorId}}"/>
+            </q-card-section>
+          </q-card>
+        </q-dialog>
+        <!--Separator-->
+        <q-separator class="q-mt-sm q-mb-md"/>
         <!---Message-->
         <div v-if="process.name == 'message'">
           <div class="text-center">
@@ -57,11 +91,32 @@ export default {
   data() {
     return {
       loading: false,
+      modalReportError: false,
       appointment: false,
       form: {}
     }
   },
   computed: {
+    //Form Error report action
+    formErrorId() {
+      return this.$store.getters['qsiteApp/getSettingValueByName']('iappointment::errorFormRelated')
+    },
+    //Appoinment actions
+    appointmentActions() {
+      let response = []
+
+      //Add report error action
+      if (this.formErrorId) response.push({
+        name: 'reportError',
+        title: this.$tr('qappointment.layout.message.reportError'),
+        action: (params) => {
+          this.modalReportError = true
+        }
+      })
+
+      //Response
+      return response
+    },
     //Appointment status
     process() {
       let fields = this.appointment.fields || []//Get appointment fields

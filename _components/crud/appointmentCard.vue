@@ -95,7 +95,7 @@
         <!--Separator-->
         <q-separator class="q-mt-sm q-mb-md"/>
         <!--Buttons-->
-        <div class="row justify-between">
+        <div class="row justify-between q-gutter-sm">
           <!--Show more info-->
           <q-btn color="info" size="sm" rounded unelevated padding="xs md" @click="showAllInfo = !showAllInfo"
                  :label="$tr(`ui.message.${showAllInfo ? 'showLess' : 'showMore'}`)"
@@ -174,7 +174,7 @@ export default {
           })
         ],
         recomendation: (row.options && row.options.recommendation) ? row.options.recommendation : false,
-        conversationId: (row.conversation && (parseInt(row.conversation.status) == 2)) ? row.conversation.id : false,
+        conversationId: row.conversation ? row.conversation.id : false,
         ratingFields: (!rating && !ratingComments) ? false : {
           rattingComments: ratingComments ? ratingComments.value : false,
           ratingField: !rating ? false : {
