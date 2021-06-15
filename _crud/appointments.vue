@@ -65,7 +65,34 @@ export default {
               loadOptions: {
                 apiRoute: 'apiRoutes.qappointment.categories'
               }
-            }
+            },
+            assigned: {
+              value: null,
+              type: 'select',
+              props: {
+                label: this.$trp('qappointment.layout.form.assigned'),
+                clearable: true
+              },
+              loadOptions: {
+                apiRoute: 'apiRoutes.quser.users',
+                select: {label: 'fullName', id: 'id'},
+                filterByQuery: true
+              }
+            },
+            customer: {
+              value: null,
+              type: 'select',
+              props: {
+                label: this.$trp('qappointment.layout.form.customer'),
+                clearable: true
+              },
+              loadOptions: {
+                apiRoute: 'apiRoutes.quser.users',
+                select: {label: 'fullName', id: 'id'},
+                filterByQuery: true
+              }
+            },
+            date: true,
           },
           grid: {
             component: () => import('@imagina/qappointment/_components/crud/appointmentCard'),
