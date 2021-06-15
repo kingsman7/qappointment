@@ -13,7 +13,7 @@
           <q-btn-dropdown flat color="blue-grey" dropdown-icon="fas fa-ellipsis-v" round unelevated
                           v-if="appointmentActions.length">
             <q-list>
-              <q-item v-for="(action, keyItem) in appointmentActions" clickable v-close-popup
+              <q-item v-for="(action, keyItem) in appointmentActions" :key="keyItem" clickable v-close-popup
                       @click="action.action()">
                 <q-item-section>
                   <q-item-label>{{ action.title }}</q-item-label>
