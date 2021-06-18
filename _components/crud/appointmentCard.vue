@@ -4,7 +4,10 @@
     <div class="appt-card box" v-if="rowData">
       <!--Title-->
       <div class="appt-card__title row items-center justify-between">
+        <!--Label-->
         <div class="box-title">{{ rowData.title }}</div>
+        <!--Actions-->
+        <btn-menu :actions="fieldActions" :action-data="row"/>
       </div>
       <!--Fields-->
       <div class="appt-card__fields">
@@ -100,9 +103,6 @@
           <q-btn color="info" size="sm" rounded unelevated padding="xs md" @click="showAllInfo = !showAllInfo"
                  :label="$tr(`ui.message.${showAllInfo ? 'showLess' : 'showMore'}`)"
                  :icon="`fas fa-angle-double-${showAllInfo ? 'up' : 'down'}`"/>
-          <!--Edit-->
-          <q-btn color="green" size="sm" rounded unelevated @click="$emit('update')"
-                 :label="$tr('ui.label.edit')" icon="fas fa-pen" v-if="permitAction.edit"/>
         </div>
       </div>
     </div>
@@ -122,7 +122,8 @@ export default {
   },
   props: {
     row: {default: false},
-    permitAction: {default: false}
+    permitAction: {default: false},
+    fieldActions: {default: false}
   },
   components: {advanceChat},
   watch: {},
