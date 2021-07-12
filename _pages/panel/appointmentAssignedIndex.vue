@@ -1,65 +1,67 @@
 <template>
   <div id="appointmentAssignedIndex">
-    <div id="appointmentAssignedIndexContent" class="box" style="padding: 0">
+    <div id="appointmentAssignedIndexContent" class="box relative-position" style="padding: 0">
       <!--Chat-->
       <advanced-chat :rooms-id="assignedConversations.conversationsId"
                      @room-opened="roomId => selectedRommId = $clone(roomId)"
                      :advanced-props="advancedChatProps" v-if="!loading" height="calc(100vh - 200px)"
                      :load-rooms="assignedConversations.conversationsId.length ? true : false"/>
       <!--Dialog Information-->
-      <q-dialog v-model="modal.show">
-        <q-card id="dialogInformation" class="bg-grey-1" v-if="appointmentSelected">
-          <!--Header-->
-          <q-toolbar class="bg-primary text-white">
-            <q-toolbar-title>
-              <label>{{ modal.title }}</label>
-            </q-toolbar-title>
-            <q-btn class="q-hide q-md-show" flat v-close-popup icon="fas fa-times"/>
-          </q-toolbar>
-
-          <!--Content-->
-          <q-card-section class="relative-position col-12">
-            <!--Information Fields-->
-            <div v-if="modal.type == 'showInformation'">
-              <div class="appt-card__fields-field q-py-xs"
-                   v-for="(field, keyField) in (appointmentSelected.fields || [])"
-                   :key="keyField">
-                <label class="text-grey-7 q-mr-xs">{{ field.name }}:</label><label>{{ field.value }}</label>
+      <master-modal v-model="modal.show" :title="modal.title || ''" :loading="modal.loading">
+        <!--Content-->
+        <div v-if="appointmentSelected">
+          <!--Information Fields-->
+          <div v-if="modal.type == 'showInformation'" class="box box-auto-height">
+            <div v-for="(field, keyField) in (appointmentSelected.fields || [])"
+                 :key="keyField" class="appt-card__fields-field q-py-xs">
+              <label class="text-grey-7 q-mr-xs">{{ field.name }}:</label><label>{{ field.value }}</label>
+            </div>
+          </div>
+          <!--Subscriptions-->
+          <div v-else-if="modal.type == 'showSubscription'">
+            <!--Empty-->
+            <not-result v-if="!modal.loading && (!modal.data || !modal.data.length)"/>
+            <!--Data-->
+            <div v-for="(field, keyField) in (modal.data || [])"
+                 :key="keyField" class="box box-auto-height q-py-xs q-mb-sm">
+              <!--Name-->
+              <div>
+                <label class="text-grey-7 q-mr-xs">{{ $tr('ui.form.name') }}:</label>
+                <label>{{ field.name }}</label>
+              </div>
+              <!--Start Date-->
+              <div>
+                <label class="text-grey-7 q-mr-xs">{{ $tr('qplan.layout.form.startDate') }}:</label>
+                <label>{{ $trd(field.startDate) }}</label>
+              </div>
+              <!--End Date-->
+              <div>
+                <label class="text-grey-7 q-mr-xs">{{ $tr('qplan.layout.form.endDate') }}:</label>
+                <label>{{ $trd(field.endDate) }}</label>
               </div>
             </div>
+          </div>
+          <!--Form-->
+          <div v-else class="box box-auto-height">
             <!--Field-->
-            <div v-else>
-              <!--Field-->
-              <dynamic-field v-model="fieldValue[modal.type]" :field="actionsFields[modal.type]" class="q-mb-md"/>
-              <!--Actions-->
-              <div class="text-right">
-                <q-btn :label="$tr('ui.label.save')" icon="fas fa-save" rounded unelevated color="green"
-                       @click="updateAppointment"/>
-              </div>
+            <dynamic-field v-model="fieldValue[modal.type]" :field="actionsFields[modal.type]" class="q-mb-md"/>
+            <!--Actions-->
+            <div class="text-right">
+              <q-btn :label="$tr('ui.label.save')" icon="fas fa-save" rounded unelevated color="green"
+                     @click="updateAppointment"/>
             </div>
-            <!--Inner loading-->
-            <inner-loading :visible="modal.loading"/>
-          </q-card-section>
-        </q-card>
-      </q-dialog>
+          </div>
+        </div>
+      </master-modal>
       <!--Form report error-->
-      <q-dialog v-model="modalReportError" persistent v-if="formErrorId">
-        <q-card id="dialogInformation" class="bg-grey-1" v-if="appointmentSelected">
-          <!--Header-->
-          <q-toolbar class="bg-primary text-white">
-            <q-toolbar-title>
-              <label>{{ $tr('qappointment.layout.message.reportError') }}</label>
-            </q-toolbar-title>
-            <q-btn flat v-close-popup icon="fas fa-times"/>
-          </q-toolbar>
-
-          <!--Content-->
-          <q-card-section class="relative-position col-12">
-            <dynamic-form :form-id="formErrorId" @sent="modalReportError = false"
-                          :send-to="{apiRoute : 'apiRoutes.qform.leads', extraData : {formId : formErrorId}}"/>
-          </q-card-section>
-        </q-card>
-      </q-dialog>
+      <master-modal v-model="modalReportError" :title="$tr('qappointment.layout.message.reportError')"
+                    :loading="modal.loading">
+        <!--Content-->
+        <div class="box box-auto-height" v-if="formErrorId && appointmentSelected">
+          <dynamic-form :form-id="formErrorId" @sent="modalReportError = false"
+                        :send-to="{apiRoute : 'apiRoutes.qform.leads', extraData : {formId : formErrorId}}"/>
+        </div>
+      </master-modal>
       <!--inner-loading-->
       <inner-loading :visible="loading"/>
     </div>
@@ -90,7 +92,8 @@ export default {
         loading: false,
         show: false,
         title: false,
-        type: false
+        type: false,
+        data: false
       },
       modalReportError: false,
       fieldValue: {
@@ -172,6 +175,24 @@ export default {
           }
         ]
       }
+
+      //Add show customer ssubscriptions action
+      if (this.$auth.hasAccess('iplan.subscriptions.index')) response.menuActions.push({
+        name: 'showSubscriptions',
+        title: this.$tr('qappointment.layout.message.showSubscriptions'),
+        action: (params) => {
+          //Set data modal
+          this.modal = {
+            show: true,
+            title: this.$trp('ui.label.subscription'),
+            type: 'showSubscription',
+            loading: true,
+            data: false
+          }
+          //Get customer subscriptions
+          this.getCustomerSubscriptions()
+        }
+      },)
 
       //Add form error report action
       if (this.formErrorId) response.menuActions.push({
@@ -284,6 +305,29 @@ export default {
         }
       }).catch(error => {
         this.modal.loading = false
+      })
+    },
+    //Get user subscriptions
+    getCustomerSubscriptions() {
+      return new Promise((resolve, reject) => {
+        //Request params
+        let requestParams = {
+          //refresh: true,
+          params: {
+            filter: {
+              user: this.appointmentSelected.customerId,
+              status: 1
+            }
+          }
+        }
+        //Request
+        this.$crud.index('apiRoutes.qplan.subscriptions', requestParams).then(response => {
+          this.modal.loading = false
+          this.modal.data = response.data
+        }).catch(error => {
+          this.modal.loading = false
+          reject(error)
+        })
       })
     }
   }

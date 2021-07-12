@@ -27,6 +27,7 @@ export default {
     showInfo: 'Ver Información',
     resumAppointment: 'Retomar cita',
     newAssignationMessage: 'Tienes una nueva assignación!',
-    reportError: 'Reportar un Error'
+    reportError: 'Reportar un Error',
+    showSubscriptions : 'Ver Suscripciones'
   }
 }
