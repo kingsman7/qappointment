@@ -57,10 +57,8 @@
       <master-modal v-model="modalReportError" :title="$tr('qappointment.layout.message.reportError')"
                     :loading="modal.loading">
         <!--Content-->
-        <div class="box box-auto-height" v-if="formErrorId && appointmentSelected">
-          <dynamic-form :form-id="formErrorId" @sent="modalReportError = false"
-                        :send-to="{apiRoute : 'apiRoutes.qform.leads', extraData : {formId : formErrorId}}"/>
-        </div>
+        <dynamic-form :form-id="formErrorId" @sent="modalReportError = false" v-if="formErrorId && appointmentSelected"
+                      :send-to="{apiRoute : 'apiRoutes.qform.leads', extraData : {formId : formErrorId}}"/>
       </master-modal>
       <!--inner-loading-->
       <inner-loading :visible="loading"/>
