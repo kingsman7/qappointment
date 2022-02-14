@@ -8,7 +8,7 @@ export default {
     crud: import('@imagina/qappointment/_crud/appointments'),
     page: () => import('@imagina/qcrud/_pages/admin/crudPage'),
     layout: () => import('@imagina/qsite/_layouts/master.vue'),
-    title: 'qappointment.sidebar.panelAppointments',
+    title: 'iappointment.cms.sidebar.panelAppointments',
     icon: 'fas fa-clipboard-check',
     subHeader: {
       refresh: true,

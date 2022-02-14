@@ -16,39 +16,39 @@ export default {
         permission: 'iappointment.appointments',
         extraFormFields: 'iappointment.crud-fields.categories',
         create: {
-          title: this.$tr('qappointment.layout.newCategory'),
+          title: this.$tr('iappointment.cms.newCategory'),
         },
         read: {
           columns: [
-            {name: 'id', label: this.$tr('ui.form.id'), field: 'id', style: 'width: 50px'},
-            {name: 'title', label: this.$tr('ui.form.title'), field: 'title', style: 'width: 50px', align: 'left'},
-            {name: 'slug', label: this.$tr('ui.form.slug'), field: 'slug', align: 'left'},
+            {name: 'id', label: this.$tr('isite.cms.form.id'), field: 'id', style: 'width: 50px'},
+            {name: 'title', label: this.$tr('isite.cms.form.title'), field: 'title', style: 'width: 50px', align: 'left'},
+            {name: 'slug', label: this.$tr('isite.cms.form.slug'), field: 'slug', align: 'left'},
             {
-              name: 'parent', label: this.$tr('ui.form.parent'), field: 'parent', align: 'left',
+              name: 'parent', label: this.$tr('isite.cms.form.parent'), field: 'parent', align: 'left',
               format: val => val ? (val.title ? val.title : '-') : '-'
             },
             {
-              name: 'form', label: this.$tr('ui.label.form'), field: 'form', align: 'left',
+              name: 'form', label: this.$tr('isite.cms.label.form'), field: 'form', align: 'left',
               format: val => val ? (val.title ? val.title : '-') : '-'
             },
             {
-              name: 'description', label: this.$tr('ui.form.description'), field: 'description',
+              name: 'description', label: this.$tr('isite.cms.form.description'), field: 'description',
               align: 'left', style: 'width: 100px'
             },
             {
-              name: 'created_at', label: this.$tr('ui.form.createdAt'), field: 'createdAt', align: 'left',
+              name: 'created_at', label: this.$tr('isite.cms.form.createdAt'), field: 'createdAt', align: 'left',
               format: val => val ? this.$trd(val) : '-',
             },
             {
-              name: 'updatedAt', label: this.$tr('ui.form.updatedAt'), field: 'updatedAt', align: 'left',
+              name: 'updatedAt', label: this.$tr('isite.cms.form.updatedAt'), field: 'updatedAt', align: 'left',
               format: val => val ? this.$trd(val) : '-',
             },
-            {name: 'actions', label: this.$tr('ui.form.actions'), align: 'left'},
+            {name: 'actions', label: this.$tr('isite.cms.form.actions'), align: 'left'},
           ],
           requestParams: {include: 'parent'}
         },
         update: {
-          title: this.$tr('qappointment.layout.updateCategory'),
+          title: this.$tr('iappointment.cms.updateCategory'),
           requestParams: {include: 'parent'}
         },
         delete: true,
@@ -60,9 +60,9 @@ export default {
             type: 'input',
             isTranslatable: true,
             props: {
-              label: `${this.$tr('ui.form.title')}*`,
+              label: `${this.$tr('isite.cms.form.title')}*`,
               rules: [
-                val => !!val || this.$tr('ui.message.fieldRequired')
+                val => !!val || this.$tr('isite.cms.message.fieldRequired')
               ],
             },
           },
@@ -70,9 +70,9 @@ export default {
             value: '',
             type: 'input',
             props: {
-              label: `${this.$tr('ui.form.slug')}*`,
+              label: `${this.$tr('isite.cms.form.slug')}*`,
               rules: [
-                val => !!val || this.$tr('ui.message.fieldRequired')
+                val => !!val || this.$tr('isite.cms.message.fieldRequired')
               ],
             }
           },
@@ -82,7 +82,7 @@ export default {
               crudType: 'select',
               crudData: import('@imagina/qform/_crud/crudForms'),
               crudProps: {
-                label: `${this.$tr('ui.label.form')}`,
+                label: `${this.$tr('isite.cms.label.form')}`,
               },
               config: {
                 options: {
@@ -96,9 +96,9 @@ export default {
             type: 'html',
             isTranslatable: true,
             props: {
-              label: `${this.$tr('ui.form.description')}*`,
+              label: `${this.$tr('isite.cms.form.description')}*`,
               rules: [
-                val => !!val || this.$tr('ui.message.fieldRequired')
+                val => !!val || this.$tr('isite.cms.message.fieldRequired')
               ],
             }
           },
@@ -108,9 +108,9 @@ export default {
             value: 0,
             type: 'select',
             props: {
-              label: `${this.$tr('ui.form.parent')}*`,
+              label: `${this.$tr('isite.cms.form.parent')}*`,
               options: [
-                {label: this.$tr('ui.label.disabled'), value: 0},
+                {label: this.$tr('isite.cms.label.disabled'), value: 0},
               ],
             },
             loadOptions: {
@@ -124,7 +124,7 @@ export default {
             value: {},
             type: 'media',
             props: {
-              label: this.$tr('ui.form.firstImage'),
+              label: this.$tr('isite.cms.form.firstImage'),
               zone: 'mainimage',
               entity: "Modules\\Iappointment\\Entities\\Category",
               entityId: null

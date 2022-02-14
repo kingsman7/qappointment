@@ -26,7 +26,7 @@
                  :key="keyField" class="box box-auto-height q-py-xs q-mb-sm">
               <!--Name-->
               <div>
-                <label class="text-grey-7 q-mr-xs">{{ $tr('ui.form.name') }}:</label>
+                <label class="text-grey-7 q-mr-xs">{{ $tr('isite.cms.form.name') }}:</label>
                 <label>{{ field.name }}</label>
               </div>
               <!--Start Date-->
@@ -47,14 +47,14 @@
             <dynamic-field v-model="fieldValue[modal.type]" :field="actionsFields[modal.type]" class="q-mb-md"/>
             <!--Actions-->
             <div class="text-right">
-              <q-btn :label="$tr('ui.label.save')" icon="fas fa-save" rounded unelevated color="green"
+              <q-btn :label="$tr('isite.cms.label.save')" icon="fas fa-save" rounded unelevated color="green"
                      @click="updateAppointment"/>
             </div>
           </div>
         </div>
       </master-modal>
       <!--Form report error-->
-      <master-modal v-model="modalReportError" :title="$tr('qappointment.layout.message.reportError')"
+      <master-modal v-model="modalReportError" :title="$tr('iappointment.cms.message.reportError')"
                     :loading="modal.loading">
         <!--Content-->
         <dynamic-form :form-id="formErrorId" @sent="modalReportError = false" v-if="formErrorId && appointmentSelected"
@@ -140,7 +140,7 @@ export default {
         menuActions: [
           {
             name: 'showInformation',
-            title: this.$tr('qappointment.layout.message.showInfo'),
+            title: this.$tr('iappointment.cms.message.showInfo'),
             action: (params) => {
               this.modal = {
                 show: true,
@@ -151,22 +151,22 @@ export default {
           },
           {
             name: 'changeStatus',
-            title: this.$tr('qappointment.layout.message.changeStatus'),
+            title: this.$tr('iappointment.cms.message.changeStatus'),
             action: (params) => {
               this.modal = {
                 show: true,
-                title: this.$tr('qappointment.layout.message.changeStatus'),
+                title: this.$tr('iappointment.cms.message.changeStatus'),
                 type: 'changeStatus'
               }
             }
           },
           {
             name: 'addRecommendation',
-            title: this.$tr('qappointment.layout.message.addRecommendation'),
+            title: this.$tr('iappointment.cms.message.addRecommendation'),
             action: (params) => {
               this.modal = {
                 show: true,
-                title: this.$tr('qappointment.layout.message.addRecommendation'),
+                title: this.$tr('iappointment.cms.message.addRecommendation'),
                 type: 'addRecommendation'
               }
             }
@@ -177,12 +177,12 @@ export default {
       //Add show customer ssubscriptions action
       if (this.$auth.hasAccess('iplan.subscriptions.index')) response.menuActions.push({
         name: 'showSubscriptions',
-        title: this.$tr('qappointment.layout.message.showSubscriptions'),
+        title: this.$tr('iappointment.cms.message.showSubscriptions'),
         action: (params) => {
           //Set data modal
           this.modal = {
             show: true,
-            title: this.$trp('ui.label.subscription'),
+            title: this.$trp('isite.cms.label.subscription'),
             type: 'showSubscription',
             loading: true,
             data: false
@@ -195,7 +195,7 @@ export default {
       //Add form error report action
       if (this.formErrorId) response.menuActions.push({
         name: 'reportError',
-        title: this.$tr('qappointment.layout.message.reportError'),
+        title: this.$tr('iappointment.cms.message.reportError'),
         action: (params) => {
           this.modalReportError = true
         }
@@ -218,7 +218,7 @@ export default {
           value: null,
           type: 'select',
           props: {
-            label: this.$tr('ui.form.status'),
+            label: this.$tr('isite.cms.form.status'),
             options: [
               {label: 'Abandonado', value: 4},
               {label: 'Completado', value: 6}
@@ -243,10 +243,10 @@ export default {
       this.$eventBus.$on('iappointment.appoinment.was.changed', (response) => {
         this.$alert.info({
           mode: 'modal',
-          message: this.$tr('qappointment.layout.message.newAssignationMessage'),
+          message: this.$tr('iappointment.cms.message.newAssignationMessage'),
           actions: [
             {
-              label: this.$tr('ui.label.refresh'),
+              label: this.$tr('isite.cms.label.refresh'),
               color: 'green',
               handler: () => this.getAppointments()
             }

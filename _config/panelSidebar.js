@@ -3,7 +3,7 @@ const pages = config('pages') // Get Pages from config
 //Appointment
 export default [
   {
-    title: 'qappointment.sidebar.adminGroup',
+    title: 'iappointment.cms.sidebar.adminGroup',
     icon: 'fas fa-clipboard-check',
     children: [
       pages.mainqappointment.appointmentIndex,

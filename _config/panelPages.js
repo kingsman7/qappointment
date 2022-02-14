@@ -7,7 +7,7 @@ export default {
     name: 'qappointment.panel.appointments.index',
     page: () => import('@imagina/qappointment/_pages/panel/appointmentCustomerShow'),
     layout: () => import('@imagina/qsite/_layouts/master.vue'),
-    title: 'qappointment.sidebar.panelAppointments',
+    title: 'iappointment.cms.sidebar.panelAppointments',
     icon: 'fas fa-clipboard-check',
     subHeader: {
       refresh: true,
@@ -21,7 +21,7 @@ export default {
     name: 'qappointment.panel.appointments.assigned.index',
     page: () => import('@imagina/qappointment/_pages/panel/appointmentAssignedIndex'),
     layout: () => import('@imagina/qsite/_layouts/master.vue'),
-    title: 'ui.label.chat',
+    title: 'isite.cms.label.chat',
     icon: 'fas fa-comments',
     subHeader: {
       refresh: true,

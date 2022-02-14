@@ -14,7 +14,7 @@
         <!--Separator-->
         <q-separator class="q-my-md"/>
         <!--Title-->
-        <div class="appt-card__fields-title box-title">{{ $tr('ui.label.information') }}</div>
+        <div class="appt-card__fields-title box-title">{{ $tr('isite.cms.label.information') }}</div>
         <!--Main Information Fields-->
         <div class="appt-card__fields-field q-py-xs" v-for="(field, keyField) in rowData.mainInformation" :key="$uid()">
           <label class="text-grey-7 q-mr-xs">{{ field.label }}:</label><label>{{ field.value }}</label>
@@ -54,28 +54,28 @@
         <!--Separator-->
         <q-separator class="q-my-sm"/>
         <!--Title-->
-        <div class="box-title q-mb-sm">{{ $trp('ui.label.recommendation') }}</div>
+        <div class="box-title q-mb-sm">{{ $trp('isite.cms.label.recommendation') }}</div>
         <!--Action-->
         <q-btn unelevated color="amber" rounded no-caps icon="fas fa-info"
-               @click="$alert.warning({mode : 'modal', message : rowData.recomendation, title : $trp('ui.label.recommendation')})"
-               :label="$tr('qappointment.layout.message.readRecomendations')"/>
+               @click="$alert.warning({mode : 'modal', message : rowData.recomendation, title : $trp('isite.cms.label.recommendation')})"
+               :label="$tr('iappointment.cms.message.readRecomendations')"/>
       </div>
       <!--Conversation info-->
       <div class="appt-card__conversation" v-if="showAllInfo && rowData.conversationId">
         <!--Separator-->
         <q-separator class="q-my-sm"/>
         <!--Title-->
-        <div class="box-title q-mb-sm">{{ $tr('ui.label.chat') }}</div>
+        <div class="box-title q-mb-sm">{{ $tr('isite.cms.label.chat') }}</div>
         <!--Action-->
         <q-btn unelevated color="info" rounded no-caps icon="fas fa-comment-alt" @click="showConversation = true"
-               :label="$tr('qappointment.layout.message.readFullConversation')"/>
+               :label="$tr('iappointment.cms.message.readFullConversation')"/>
       </div>
       <!--Rating Fields-->
       <div class="appt-card__fields" v-if="showAllInfo && rowData.ratingFields">
         <!--Separator-->
         <q-separator class="q-my-sm"/>
         <!--Title-->
-        <div class="box-title">{{ $tr('ui.label.rating') }}</div>
+        <div class="box-title">{{ $tr('isite.cms.label.rating') }}</div>
         <!--Rating-->
         <dynamic-field v-if="rowData.ratingFields.ratingField" :field="rowData.ratingFields.ratingField"/>
         <!--Rating comment-->
@@ -90,7 +90,7 @@
         <q-separator class="q-my-sm"/>
         <!--Action-->
         <q-btn unelevated color="green" rounded no-caps
-               :label="$tr('qappointment.layout.message.goToAppointment')"
+               :label="$tr('iappointment.cms.message.goToAppointment')"
                :to="{name : 'qappointment.panel.appointments.index', params : {id : rowData.id}}"/>
       </div>
       <!--Actions-->
@@ -101,7 +101,7 @@
         <div class="row justify-between q-gutter-sm">
           <!--Show more info-->
           <q-btn color="info" size="sm" rounded unelevated padding="xs md" @click="showAllInfo = !showAllInfo"
-                 :label="$tr(`ui.message.${showAllInfo ? 'showLess' : 'showMore'}`)"
+                 :label="$tr(`isite.cms.message.${showAllInfo ? 'showLess' : 'showMore'}`)"
                  :icon="`fas fa-angle-double-${showAllInfo ? 'up' : 'down'}`"/>
         </div>
       </div>
@@ -156,8 +156,8 @@ export default {
         id: row.id,
         title: this.$trd(row.createdAt),
         mainInformation: [
-          {label: `${this.$tr('ui.label.appointment')} N°`, value: row.id},
-          {label: this.$tr('ui.form.status'), value: row.status.title}
+          {label: `${this.$tr('isite.cms.label.appointment')} N°`, value: row.id},
+          {label: this.$tr('isite.cms.form.status'), value: row.status.title}
         ],
         informationFields: informationFields.map(field => {
           return {label: field.name, value: field.value}
@@ -166,12 +166,12 @@ export default {
           //Assigned to
           ((!row.assigned || row.assigned.id == currentUserId) ? false : {
             ...row.assigned,
-            rolName: this.$tr('ui.form.assignedTo')
+            rolName: this.$tr('isite.cms.form.assignedTo')
           }),
           //Customer
           ((!row.customer || row.customer.id == currentUserId) ? false : {
             ...row.customer,
-            rolName: this.$tr('ui.label.customer')
+            rolName: this.$tr('isite.cms.label.customer')
           })
         ],
         recomendation: (row.options && row.options.recommendation) ? row.options.recommendation : false,

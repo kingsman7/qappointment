@@ -28,7 +28,7 @@
             <!--Header-->
             <q-toolbar class="bg-primary text-white">
               <q-toolbar-title>
-                <label>{{ $tr('qappointment.layout.message.reportError') }}</label>
+                <label>{{ $tr('iappointment.cms.message.reportError') }}</label>
               </q-toolbar-title>
               <q-btn flat v-close-popup icon="fas fa-times"/>
             </q-toolbar>
@@ -52,10 +52,10 @@
             <!--Actions-->
             <div class="row q-gutter-x-md justify-center full-width">
               <!--Action Re take appointme-->
-              <q-btn :label="$tr('qappointment.layout.message.resumAppointment')" rounded unelevated color="amber"
+              <q-btn :label="$tr('iappointment.cms.message.resumAppointment')" rounded unelevated color="amber"
                      no-caps padding="xs md" @click="updateAppointmentStatus(1)" v-if="process.status == 4"/>
               <!--Action got to appointment list-->
-              <q-btn :label="$tr('qappointment.layout.message.appointmentList')" rounded unelevated color="green"
+              <q-btn :label="$tr('iappointment.cms.message.appointmentList')" rounded unelevated color="green"
                      no-caps :to="{name : 'qappointment.main.appointments.index'}" padding="xs md"/>
             </div>
           </div>
@@ -108,7 +108,7 @@ export default {
       //Add report error action
       if (this.formErrorId) response.push({
         name: 'reportError',
-        title: this.$tr('qappointment.layout.message.reportError'),
+        title: this.$tr('iappointment.cms.message.reportError'),
         action: (params) => {
           this.modalReportError = true
         }
@@ -136,27 +136,27 @@ export default {
       //Avalaible Message
       let availableMessages = {
         0: {//Default
-          text: this.$tr('ui.message.notFound'),
+          text: this.$tr('isite.cms.message.notFound'),
           icon: 'power_off',
           color: 'red'
         },
         1: {//Pending
-          text: this.$tr('qappointment.layout.message.assigningMessage'),
+          text: this.$tr('iappointment.cms.message.assigningMessage'),
           icon: 'fas fa-user-clock',
           color: 'primary'
         },
         4: {//Abandoned
-          text: this.$tr('qappointment.layout.message.abandonedMessage'),
+          text: this.$tr('iappointment.cms.message.abandonedMessage'),
           icon: 'fas fa-user-lock',
           color: 'amber'
         },
         5: {//Expired
-          text: this.$tr('qappointment.layout.message.expiredMessage'),
+          text: this.$tr('iappointment.cms.message.expiredMessage'),
           icon: 'fas fa-user-clock',
           color: 'red'
         },
         6: {//Complete
-          text: this.$tr('qappointment.layout.message.completedMessage'),
+          text: this.$tr('iappointment.cms.message.completedMessage'),
           icon: 'fas fa-user-check',
           color: 'green'
         }
@@ -180,7 +180,7 @@ export default {
         //Ratign form
         rating: {
           ref: 'appointmentForm',
-          title: this.$tr('ui.message.rateYour', {name: this.appointment ? this.appointment.category.title : ''}),
+          title: this.$tr('isite.cms.message.rateYour', {name: this.appointment ? this.appointment.category.title : ''}),
           blocks: [
             {
               fields: {
@@ -190,7 +190,7 @@ export default {
                   colClass: 'col-12',
                   required: true,
                   props: {
-                    label: this.$tr('ui.label.rating')
+                    label: this.$tr('isite.cms.label.rating')
                   }
                 },
                 ratingComments: {
@@ -198,7 +198,7 @@ export default {
                   type: 'input',
                   colClass: 'col-12',
                   props: {
-                    label: `${this.$tr('ui.label.comment')}...`,
+                    label: `${this.$tr('isite.cms.label.comment')}...`,
                     type: 'textarea',
                     rows: "3"
                   }

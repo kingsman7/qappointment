@@ -15,44 +15,44 @@ export default {
         apiRoute: 'apiRoutes.qappointment.appointments',
         extraFormFields: 'iappointment.crud-fields.appointments',
         create: {
-          title: this.$tr('qappointment.layout.newAppointment'),
+          title: this.$tr('iappointment.cms.newAppointment'),
           toExternalUrl: `${this.$store.state.qsiteApp.baseUrl}/cita/categorias`
         },
         read: {
           showAs: 'grid',
           allowToggleView: false,
           columns: [
-            {name: 'id', label: this.$tr('ui.form.id'), field: 'id', style: 'width: 50px'},
+            {name: 'id', label: this.$tr('isite.cms.form.id'), field: 'id', style: 'width: 50px'},
             {
-              name: 'customer', label: this.$tr('qappointment.layout.form.customer'), align: 'left',
+              name: 'customer', label: this.$tr('iappointment.cms.form.customer'), align: 'left',
               field: 'customer', sortable: true, format: val => ((val && val.fullName) ? val.fullName : '-')
             },
             {
-              name: 'assigned', label: this.$tr('qappointment.layout.form.assigned'), align: 'left',
+              name: 'assigned', label: this.$tr('iappointment.cms.form.assigned'), align: 'left',
               field: 'assigned', sortable: true, format: val => ((val && val.fullName) ? val.fullName : '-')
             },
             {
-              name: 'category', label: this.$tr('ui.form.category'),
+              name: 'category', label: this.$tr('isite.cms.form.category'),
               align: 'left', field: 'category', sortable: true,
               format: val => ((val && val.title) ? val.title : '-')
             },
             {
-              name: 'statusinfo', label: this.$tr('ui.form.status'), field: 'status', align: 'left',
+              name: 'statusinfo', label: this.$tr('isite.cms.form.status'), field: 'status', align: 'left',
               format: val => ((val && val.title) ? val.title : '-')
             },
             {
-              name: 'description', label: this.$tr('ui.form.description'), field: 'description',
+              name: 'description', label: this.$tr('isite.cms.form.description'), field: 'description',
               align: 'left', classes: 'ellipsis', style: 'max-width : 250px'
             },
             {
-              name: 'created_at', label: this.$tr('ui.form.createdAt'), field: 'createdAt', align: 'left',
+              name: 'created_at', label: this.$tr('isite.cms.form.createdAt'), field: 'createdAt', align: 'left',
               format: val => val ? this.$trd(val) : '-',
             },
             {
-              name: 'updatedAt', label: this.$tr('ui.form.updatedAt'), field: 'updatedAt', align: 'left',
+              name: 'updatedAt', label: this.$tr('isite.cms.form.updatedAt'), field: 'updatedAt', align: 'left',
               format: val => val ? this.$trd(val) : '-',
             },
-            {name: 'actions', label: this.$tr('ui.form.actions'), align: 'left'},
+            {name: 'actions', label: this.$tr('isite.cms.form.actions'), align: 'left'},
           ],
           requestParams: {include: 'category,customer,assigned,status,fields,conversation'},
           filters: {
@@ -60,7 +60,7 @@ export default {
               value: null,
               type: 'treeSelect',
               props: {
-                label: this.$tr('ui.label.category')
+                label: this.$tr('isite.cms.label.category')
               },
               loadOptions: {
                 apiRoute: 'apiRoutes.qappointment.categories'
@@ -70,7 +70,7 @@ export default {
               value: null,
               type: 'select',
               props: {
-                label: this.$trp('qappointment.layout.form.assigned'),
+                label: this.$trp('iappointment.cms.form.assigned'),
                 clearable: true
               },
               loadOptions: {
@@ -83,7 +83,7 @@ export default {
               value: null,
               type: 'select',
               props: {
-                label: this.$trp('qappointment.layout.form.customer'),
+                label: this.$trp('iappointment.cms.form.customer'),
                 clearable: true
               },
               loadOptions: {
@@ -99,7 +99,7 @@ export default {
           }
         },
         update: {
-          title: this.$tr('qappointment.layout.updateAppointment')
+          title: this.$tr('iappointment.cms.updateAppointment')
         },
         delete: true,
         formLeft: {
@@ -112,7 +112,7 @@ export default {
               crudType: 'select',
               crudData: import('@imagina/quser/_crud/users'),
               crudProps: {
-                label: this.$trp('qappointment.layout.form.assigned'),
+                label: this.$trp('iappointment.cms.form.assigned'),
               },
               config: {
                 options: {
@@ -129,9 +129,9 @@ export default {
               crudType: 'select',
               crudData: import('@imagina/qappointment/_crud/categories'),
               crudProps: {
-                label: `${this.$tr('ui.form.category')}*`,
+                label: `${this.$tr('isite.cms.form.category')}*`,
                 rules: [
-                  val => !!val || this.$tr('ui.message.fieldRequired')
+                  val => !!val || this.$tr('isite.cms.message.fieldRequired')
                 ],
               },
               config: {
@@ -145,9 +145,9 @@ export default {
             value: '1',
             type: 'select',
             props: {
-              label: `${this.$tr('ui.form.status')}:`,
+              label: `${this.$tr('isite.cms.form.status')}:`,
               rules: [
-                val => !!val || this.$tr('ui.message.fieldRequired')
+                val => !!val || this.$tr('isite.cms.message.fieldRequired')
               ],
             },
             loadOptions: {
@@ -159,7 +159,7 @@ export default {
             type: 'html',
             isFakeField: true,
             props: {
-              label: `${this.$tr('ui.label.recommendation')}`
+              label: `${this.$tr('isite.cms.label.recommendation')}`
             }
           },
         },
