@@ -1,7 +1,14 @@
-<template></template>
+<template>
+  <config-crud ref="configCrud" />
+</template>
 <script>
 //Component
+import configCrud from "@imagina/qcrud/_config/CrudConfig"
+import appJson from "@imagina/qappointment/_crud/categories.json"
 export default {
+  components:{
+    configCrud
+  },
   data() {
     return {
       crudId: this.$uid()
@@ -10,7 +17,8 @@ export default {
   computed: {
     crudData() {
       return {
-        crudId: this.crudId,
+        ...this.$refs.configCrud.getData(appJson),
+       /* crudId: this.crudId,
         entityName: config("main.qappointment.entityNames.category"),
         apiRoute: 'apiRoutes.qappointment.categories',
         permission: 'iappointment.appointments',
@@ -51,7 +59,7 @@ export default {
           title: this.$tr('iappointment.cms.updateCategory'),
           requestParams: {include: 'parent'}
         },
-        delete: true,
+        delete: true,*/
         formLeft: {
           id: {value: ''},
           userId: {value: this.$store.state.quserAuth.userId},

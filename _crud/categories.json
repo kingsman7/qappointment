@@ -1,0 +1,194 @@
+{
+  "crudId": "iqappointment-crud-appointments",
+  "entityName": "appointment",
+  "apiRoute": "/iappointment/v1/categories",
+  "permission": "iappointment.appointments",
+  "extraFormFields": "iappointment.crud-fields.categories",
+  "create": {
+    "title": "iappointment.cms.newCategory"
+  },
+  "read": {
+    "columns": [
+      {
+        "name": "id",
+        "label": {
+          "isTranslatable": "singular",
+          "value": "isite.cms.form.id"
+        },
+        "field": "id",
+        "sortable": false,
+        "style": "width: 50px"
+      },
+      {
+        "name": "title",
+        "label": {
+          "isTranslatable": "singular",
+          "value": "isite.cms.form.title"
+        },
+        "field": "title",
+        "align": "left",
+        "sortable": true,
+        "style": "width: 50px"
+      },
+      {
+        "name": "slug",
+        "label": {
+          "isTranslatable": "singular",
+          "value": "isite.cms.form.slug"
+        },
+        "field": "slug",
+        "align": "left",
+        "sortable": false
+      },
+      {
+        "name": "parent",
+        "label": {
+          "isTranslatable": "singular",
+          "value": "isite.cms.form.parent"
+        },
+        "field": "parent",
+        "align": "left",
+        "sortable": true,
+        "format":{
+          "type":"str",
+          "child":["title"]
+        }
+      },
+      {
+        "name": "form",
+        "label": {
+          "isTranslatable": "singular",
+          "value": "isite.cms.label.form"
+        },
+        "field": "form",
+        "align": "left",
+        "sortable": true,
+        "format":{
+          "type":"str",
+          "child":["title"]
+        }
+      },
+      {
+        "name": "description",
+        "label": {
+          "isTranslatable": "singular",
+          "value": "isite.cms.form.description"
+        },
+        "field": "description",
+        "style": "width : 100px",
+        "align":"left",
+        "sortable": false
+      },
+      {
+        "name": "create_at",
+        "label": {
+          "isTranslatable": "singular",
+          "value": "isite.cms.form.createdAt"
+        },
+        "field": "createdAt",
+        "align": "left",
+        "sortable": false,
+        "format": {
+          "type": "date"
+        }
+      },
+      {
+        "name": "updated_at",
+        "label": {
+          "isTranslatable": "singular",
+          "value": "isite.cms.form.updatedAt"
+        },
+        "field": "updatedAt",
+        "align": "left",
+        "sortable": false,
+        "format": {
+          "type": "date"
+        }
+      },
+      {
+        "name": "actions",
+        "label": {
+          "isTranslatable": "singular",
+          "value": "isite.cms.form.actions"
+        },
+        "align": "left"
+      }
+    ],
+    "requestParams": {
+      "include": "parent"
+    },
+    "filters": [
+      {
+        "filterName": "categories",
+        "value": null,
+        "type": "treeSelect",
+        "props": {
+          "label": {
+            "isTranslatable": {
+              "type": "singular",
+              "value": "isite.cms.label.category"
+            }
+          }
+        },
+        "loadOptions": {
+          "apiRoute": "/iappointment/v1/categories"
+        }
+      },
+      {
+        "filterName": "assigned",
+        "value": null,
+        "type": "select",
+        "props": {
+          "label": {
+            "isTranslatable": {
+              "type": "plural",
+              "value": "iappointment.cms.form.assigned"
+            },
+            "clearable": true
+          }
+        },
+        "loadOptions": {
+          "apiRoute": "/profile/v1/users",
+          "select": {
+            "label": "fullName", 
+            "id": "id"
+          },
+          "filterByQuery": true
+        }
+      },
+      {
+        "filterName": "customer",
+        "value": null,
+        "type": "select",
+        "props": {
+          "isTranslatable": {
+            "type": "plural",
+            "value": "iappointment.cms.form.customer"
+          },
+          "clearable": true
+        },
+        "loadOptions": {
+          "apiRoute": "/profile/v1/users",
+          "select": {
+            "label": "fullName", 
+            "id": "id"
+          },
+          "filterByQuery": true
+        }
+      },
+      {"date": true}
+    ]
+  },
+  "update": {
+    "title": {
+      "isTranslatable": {
+        "type": "singular",
+        "value": "iappointment.cms.updateCategory"
+      },
+      "requestParams": {
+        "include": "parent"
+      }
+    }
+  },
+  "delete": true
+}
